@@ -45,9 +45,9 @@ input.on('data', (data) => {
                 console.log('Enter tenth and final number');
                 break;
         }
+        console.log(`Your sum of even numbers is: ${sum} and average of odd numbers is: ${odd.reduce((a,b) => a + b,0)/odd.length || 0}`);
         return;
     }
-    console.log(`Your sum of even numbers is: ${sum} and average of odd numbers is: ${odd.reduce((a,b) => a + b,0)/odd.length}`);
     process.exit();
 })
 // console.log('hello world');
