@@ -150,12 +150,42 @@ class Plant extends EventEmitter {
 }
 
 const plant = new Plant();
-plant.emit('plantSeed')
-plant.emit('water')
-plant.emit('bugAttack')
-plant.emit('harvest')
-plant.emit('water')
-plant.emit('water')
-plant.emit('water')
-plant.emit('water')
+
+console.log('Let\'s play enter plantSeed, water, bugAttack, harvest, or quit')
+
+let input = process.stdin;
+
+input.on('data', (data) => {
+    let action = String(data).trim()
+    if (action === 'quit') {
+        console.log('Thanks for playing!')
+        process.exit()
+    }
+    if (action === 'plantSeed') {
+        plant.emit('plantSeed')
+        return
+    }
+    if (action === 'water') {
+        plant.emit('water')
+        return
+    }
+    if (action === 'bugAttack') {
+        plant.emit('bugAttack')
+        return
+    }
+    if (action === 'harvest') {
+        plant.emit('harvest')
+        return
+    }
+    console.log('Invalid input')
+})
+
+// plant.emit('plantSeed')
+// plant.emit('water')
+// plant.emit('bugAttack')
+// plant.emit('harvest')
+// plant.emit('water')
+// plant.emit('water')
+// plant.emit('water')
+// plant.emit('water')
 
