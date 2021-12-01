@@ -93,6 +93,8 @@
 // myEmitter.emit('error')
 // myEmitter.emit('event','test','test2')
 
+// Day  2
+
 // const EventEmitter = require('events');
 
 // class Robot extends EventEmitter {
@@ -116,76 +118,149 @@
 // bot.emit('speak','hello')
 // bot.emit('activate')
 // bot.emit('speak','hello')
-const EventEmitter = require('events');
 
-class Plant extends EventEmitter {
-    constructor() {
-        super();
-        this.size = 0;
-        this.hasBeenPlanted = false;
-        this.once('plantSeed', () => {
-            this.hasBeenPlanted = true;
-            this.size = 1;
-            console.log(`The seed has been planted`)
-        })
-        this.on('water', () => {
-            if (!this.hasBeenPlanted) return console.log('You must plant a seed')
-            this.size++;
-            console.log(`There are ${this.size} plants`)
-        })
-        this.on('bugAttack', () => {
-            if (!this.hasBeenPlanted) return console.log('You must plant a seed')
-            this.size--;
-            console.log(`There are ${this.size} plants`)
-        })
-        this.on('harvest', () => {
-            if (!this.hasBeenPlanted) return console.log('You must plant a seed')
-            console.log(`There are ${this.size} plants`)
-            this.removeAllListeners()
-        })
-        this.on('error', () => {
-            console.log('Ooops')
-        })
-    }
-}
+// Day 2.1
 
-const plant = new Plant();
+// const EventEmitter = require('events');
 
-console.log('Let\'s play enter plantSeed, water, bugAttack, harvest, or quit')
+// class Plant extends EventEmitter {
+//     constructor() {
+//         super();
+//         this.size = 0;
+//         this.hasBeenPlanted = false;
+//         this.once('plantSeed', () => {
+//             this.hasBeenPlanted = true;
+//             this.size = 1;
+//             console.log(`The seed has been planted`)
+//         })
+//         this.on('water', () => {
+//             if (!this.hasBeenPlanted) return console.log('You must plant a seed')
+//             this.size++;
+//             console.log(`There are ${this.size} plants`)
+//         })
+//         this.on('bugAttack', () => {
+//             if (!this.hasBeenPlanted) return console.log('You must plant a seed')
+//             this.size--;
+//             console.log(`There are ${this.size} plants`)
+//         })
+//         this.on('harvest', () => {
+//             if (!this.hasBeenPlanted) return console.log('You must plant a seed')
+//             console.log(`There are ${this.size} plants`)
+//             this.removeAllListeners()
+//         })
+//         this.on('error', () => {
+//             console.log('Ooops')
+//         })
+//     }
+// }
 
-let input = process.stdin;
+// const plant = new Plant();
 
-input.on('data', (data) => {
-    let action = String(data).trim()
-    if (action === 'quit') {
-        console.log('Thanks for playing!')
-        process.exit()
-    }
-    if (action === 'plantSeed') {
-        plant.emit('plantSeed')
-        return
-    }
-    if (action === 'water') {
-        plant.emit('water')
-        return
-    }
-    if (action === 'bugAttack') {
-        plant.emit('bugAttack')
-        return
-    }
-    if (action === 'harvest') {
-        plant.emit('harvest')
-        return
-    }
-    console.log('Invalid input')
+// console.log('Let\'s play enter plantSeed, water, bugAttack, harvest, or quit')
+
+// let input = process.stdin;
+
+// input.on('data', (data) => {
+//     let action = String(data).trim()
+//     if (action === 'quit') {
+//         console.log('Thanks for playing!')
+//         process.exit()
+//     }
+//     if (action === 'plantSeed') {
+//         plant.emit('plantSeed')
+//         return
+//     }
+//     if (action === 'water') {
+//         plant.emit('water')
+//         return
+//     }
+//     if (action === 'bugAttack') {
+//         plant.emit('bugAttack')
+//         return
+//     }
+//     if (action === 'harvest') {
+//         plant.emit('harvest')
+//         return
+//     }
+//     console.log('Invalid input')
+// })
+
+// Day 3
+// Write
+
+// const fs = require('fs');
+// const file = fs.createWriteStream('./masterPreston.txt');
+
+// for(let i = 0; i < 100; i++) {{
+//     file.write('test teset setsetse setse set sets')
+// }}
+// file.end()
+
+// read
+
+// const fs = require('fs');
+// const file = fs.createWriteStream('./myNewFile.txt');
+// process.stdin.setEncoding('utf-8')
+
+// process.stdin.on('readable', () => {
+//     let chunk;
+//     while((chunk = process.stdin.read()) != null) {
+//         process.stdout.write(`data: ${chunk}`);
+//         file.write(`${chunk}`)
+//     }
+// })
+
+// process.stdin.on('end', () => {
+//     process.stdout.write('Done reading\n')
+// })
+// process.stdin.on('close', () => {
+//     process.stdout.write('close end\n')
+// })
+
+// crypto
+
+// const fs = require('fs');
+// const crypto = require('crypto');
+
+// const fileName = 'plainText.txt';
+// const algorithm = 'aes-192-cbc';
+// const password = 'Password used to generate key';
+
+// // Use the async `crypto.scrypt()` instead.
+// const key = crypto.scryptSync(password, 'salt', 24);
+
+// // The IV is usually passed along with the ciphertext.
+// const iv = Buffer.alloc(16, 0); // Initialization vector.
+
+// encrypt();
+
+// setTimeout(decrypt, 1000);
+
+// function encrypt() {
+//     const inFile = fs.createReadStream(fileName);
+//     const outFile = fs.createWriteStream(fileName + '.out');
+//     const encrypt = crypto.createCipheriv(algorithm, key, iv);
+//     inFile.pipe(encrypt).pipe(outFile);
+// }
+// function decrypt() {
+//     const inFile2 = fs.createReadStream(fileName + '.out');
+//     const outFile2 = fs.createWriteStream(fileName + '.out2');
+//     const decrypt = crypto.createDecipheriv(algorithm, key, iv);
+//     inFile2.pipe(decrypt).pipe(outFile2);
+// }
+
+// Duplex Stream
+
+const net = require('net');
+const server = net.createServer((socket) => {
+    console.log('Welcome to Echo server\r\n');
+    socket.on('data', (chunk) => {
+        socket.write(chunk);
+    });
+    socket.on('end', socket.end);
+});
+
+server.listen(3000, () => {
+    console.log('Sever is up')
 })
-
-// plant.emit('plantSeed')
-// plant.emit('water')
-// plant.emit('bugAttack')
-// plant.emit('harvest')
-// plant.emit('water')
-// plant.emit('water')
-// plant.emit('water')
-// plant.emit('water')
 
