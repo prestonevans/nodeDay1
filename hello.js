@@ -251,16 +251,63 @@
 
 // Duplex Stream
 
-const net = require('net');
-const server = net.createServer((socket) => {
-    console.log('Welcome to Echo server\r\n');
-    socket.on('data', (chunk) => {
-        socket.write(chunk);
-    });
-    socket.on('end', socket.end);
-});
+// const net = require('net');
+// const server = net.createServer((socket) => {
+//     console.log('Welcome to Echo server\r\n');
+//     socket.on('data', (chunk) => {
+//         socket.write(chunk);
+//     });
+//     socket.on('end', socket.end);
+// });
 
-server.listen(3000, () => {
-    console.log('Sever is up')
+// server.listen(3000, () => {
+//     console.log('Sever is up')
+// })
+
+
+
+// Day 4
+
+
+
+const fs = require('fs');
+
+// fs.readdir('./',(err, files) => {
+//     if(err) throw err;
+//     console.log(files)
+// })
+// console.log('Reading files...')
+
+// const files = fs.readdirSync('./')
+// console.log(files)
+
+// fs.readFile('./plainText.txt','utf8', (err, data) => {
+//     if(err) throw err;
+//     console.log(data)
+// })
+
+// try {
+//     const data = fs.readFileSync('./plainText.txt','utf-8');
+//     console.log(data)
+// }
+// catch(e) {
+//     console.log('Oh no you messed up...')
+// }
+
+// fs.writeFile('./plainText.txt', 'sup', (err) => {
+//     if(err) throw err
+//     console.log('Done')
+// })
+
+const bacon = process.argv[2].trim()
+const writeTo = process.argv[3].trim()
+
+
+fs.readFile(bacon ,'utf8', (err, data) => {
+    if(err) throw err;
+    console.log(`Bacon is printed ${data.match(/bacon/gi).length} times.`)
+    fs.writeFile(`./${writeTo}`, data.replace(/bacon/gi,'tasty'), (err) => {
+    if(err) throw err
+    console.log(`${writeTo} files has been created`)
 })
-
+})
