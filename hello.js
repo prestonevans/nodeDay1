@@ -299,15 +299,52 @@ const fs = require('fs');
 //     console.log('Done')
 // })
 
-const bacon = process.argv[2].trim()
-const writeTo = process.argv[3].trim()
+// const bacon = process.argv[2].trim()
+// const writeTo = process.argv[3].trim()
 
 
-fs.readFile(bacon ,'utf8', (err, data) => {
-    if(err) throw err;
-    console.log(`Bacon is printed ${data.match(/bacon/gi).length} times.`)
-    fs.writeFile(`./${writeTo}`, data.replace(/bacon/gi,'tasty'), (err) => {
-    if(err) throw err
-    console.log(`${writeTo} files has been created`)
-})
+// fs.readFile(bacon ,'utf8', (err, data) => {
+//     if(err) throw err;
+//     console.log(`Bacon is printed ${data.match(/\bbacon\b/gi).length} times.`)
+//     fs.writeFile(`./${writeTo}`, data.replace(/\bbacon\b/gi,'tasty'), (err) => {
+//     if(err) throw err
+//     console.log(`${writeTo} file has been created`)
+// })
+// })
+
+// fs.stat('./bacon.txt', (err, stat) => {
+//     if(err) throw err;
+//     console.log(stat)
+// })
+// // if file is readable or writeable 
+// fs.access('./bacon.txt', fs.constants.R_OK | fs.constants.W_OK, err => {
+//     console.log(`./bacon.txt ${err ? 'does not exist' : 'exists'}`)
+// })
+// fs.access('./bacon.txt', fs.constants.R_OK, err => {
+//     console.log(`./bacon.txt ${err ? 'not readable' : 'readable'}`)
+// })
+
+// fs.mkdir('./test/test2',{recursive: true}, err => {
+//     if (err) throw err;
+//     console.log('directory made')
+// })
+// fs.rmdir('./test', err => {
+//     if (err) throw err;
+//     console.log('directory removed')
+// })
+// fs.unlink('./meh.txt', err => {
+//     if (err) throw err;
+//     console.log('file removed')
+// })
+
+fs.readdir('./lib', {withFileTypes: true}, (err, dirents) => {
+    const fileNames = dirents.filter(dirent => dirent.isFile()).map(dirent => dirent.name)
+    for(let file of fileNames) {
+        if (file[0] !== '.') {
+            fs.readFile(`./lib/${file}`, 'utf8', (err, data) => {
+                if(err) throw err;
+                console.log(data)
+            })
+        }
+    }
 })
