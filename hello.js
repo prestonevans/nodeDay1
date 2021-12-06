@@ -264,13 +264,9 @@
 //     console.log('Sever is up')
 // })
 
-
-
 // Day 4
 
-
-
-const fs = require('fs');
+// const fs = require('fs');
 
 // fs.readdir('./',(err, files) => {
 //     if(err) throw err;
@@ -302,7 +298,6 @@ const fs = require('fs');
 // const bacon = process.argv[2].trim()
 // const writeTo = process.argv[3].trim()
 
-
 // fs.readFile(bacon ,'utf8', (err, data) => {
 //     if(err) throw err;
 //     console.log(`Bacon is printed ${data.match(/\bbacon\b/gi).length} times.`)
@@ -316,7 +311,7 @@ const fs = require('fs');
 //     if(err) throw err;
 //     console.log(stat)
 // })
-// // if file is readable or writeable 
+// // if file is readable or writeable
 // fs.access('./bacon.txt', fs.constants.R_OK | fs.constants.W_OK, err => {
 //     console.log(`./bacon.txt ${err ? 'does not exist' : 'exists'}`)
 // })
@@ -337,14 +332,32 @@ const fs = require('fs');
 //     console.log('file removed')
 // })
 
-fs.readdir('./lib', {withFileTypes: true}, (err, dirents) => {
-    const fileNames = dirents.filter(dirent => dirent.isFile()).map(dirent => dirent.name)
-    for(let file of fileNames) {
-        if (file[0] !== '.') {
-            fs.readFile(`./lib/${file}`, 'utf8', (err, data) => {
-                if(err) throw err;
-                console.log(data)
-            })
-        }
-    }
-})
+// fs.readdir('./lib', {withFileTypes: true}, (err, dirents) => {
+//     const fileNames = dirents.filter(dirent => dirent.isFile()).map(dirent => dirent.name)
+//     for(let file of fileNames) {
+//         if (file[0] !== '.') {
+//             fs.readFile(`./lib/${file}`, 'utf8', (err, data) => {
+//                 if(err) throw err;
+//                 console.log(data)
+//             })
+//         }
+//     }
+// })
+
+// Day 6
+
+// const net = require('net')
+
+// const server = net.createServer(client => {
+//     //sever code here
+// }).listen(5000)
+
+// net.createServer()
+
+// const client = net.createConnection('net')
+
+// const client = net.createConnection({port: 5000} () => {
+//     // console.log(connected)
+// })
+
+// client.createConnection()
